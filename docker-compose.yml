@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  curator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: curator-music
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production

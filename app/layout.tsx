@@ -5,7 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { PWAPrompt } from '@/components/pwa-prompt';
 import { CuratorPlayerCard } from '@/components/curator-player';
-import { ClientLayout } from '@/components/client-layout'; // Assuming ClientLayout is defined in this file
+import { ClientLayout } from '@/components/client-layout';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,10 +27,23 @@ export const metadata: Metadata = {
     viewportFit: 'cover',
   },
   icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icons/icon-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
     apple: [
       { url: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
       { url: '/icons/icon-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
+    shortcut: ['/favicon.ico'],
+  },
+  other: {
+    'mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'default',
+    'apple-mobile-web-app-title': 'Music Curator',
   },
 };
 
@@ -50,9 +63,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="min-h-screen pb-24">
-            <ClientLayout>{children}</ClientLayout>
+            <ClientLayout>
+              {children}
+              <CuratorPlayerCard />
+            </ClientLayout>
           </main>
-          <CuratorPlayerCard />
           <Toaster />
           <PWAPrompt />
         </ThemeProvider>

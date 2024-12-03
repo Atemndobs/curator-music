@@ -1,0 +1,59 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "feature/*" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Lint
+      run: npm run lint
+    
+    - name: Build
+      run: npm run build
+    
+    - name: Test
+      run: npm test
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    
+    - name: Add host key
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan curator.atemkeng.de >> ~/.ssh/known_hosts
+    
+    - name: Copy deployment script
+      run: |
+        chmod +x scripts/deploy.sh
+        scp scripts/deploy.sh atem@curator.atemkeng.de:/home/atem/docker/curator-music/
+    
+    - name: Deploy to Production
+      run: |
+        ssh atem@curator.atemkeng.de "chmod +x /home/atem/docker/curator-music/deploy.sh && /home/atem/docker/curator-music/deploy.sh"
