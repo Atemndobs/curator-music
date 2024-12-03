@@ -1,0 +1,55 @@
+{
+  "name": "Music Curator",
+  "short_name": "Curator",
+  "description": "A mobile-first music curation app",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1E1A3F",
+  "theme_color": "#2B1B54",
+  "categories": ["music", "entertainment"],
+  "launch_handler": {
+    "client_mode": ["focus-existing", "auto"]
+  },
+  "id": "/",
+  "dir": "ltr",
+  "lang": "en",
+  "display_override": ["standalone", "window-controls-overlay"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.png",
+      "sizes": "1170x2532",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Home screen of Music Curator"
+    }
+  ]
+}
