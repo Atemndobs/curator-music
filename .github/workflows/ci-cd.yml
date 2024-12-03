@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     
     steps:
@@ -25,14 +25,13 @@ jobs:
     - name: Lint
       run: npm run lint
     
-    - name: Build
-      run: npm run build
+    - name: Build and Test
+      run: |
+        npm run build
+        npm test
     
-    - name: Test
-      run: npm test
-
   deploy:
-    needs: build
+    needs: build-and-test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     
