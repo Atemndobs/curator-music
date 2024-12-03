@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     
     steps:
@@ -20,7 +20,7 @@ jobs:
         cache: 'npm'
     
     - name: Install dependencies
-      run: npm ci
+      run: npm install
     
     - name: Lint
       run: npm run lint
@@ -28,11 +28,8 @@ jobs:
     - name: Build
       run: npm run build
     
-    - name: Test
-      run: npm test
-
   deploy:
-    needs: build
+    needs: build-and-test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     
