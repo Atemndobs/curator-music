@@ -49,11 +49,11 @@ jobs:
         mkdir -p ~/.ssh
         ssh-keyscan curator.atemkeng.de >> ~/.ssh/known_hosts
     
-    - name: Deploy to Production
-      env:
-        DEPLOY_PATH: /home/atem/docker/curator-music
+    - name: Copy deployment script
       run: |
-        ssh atem@curator.atemkeng.de "mkdir -p $DEPLOY_PATH"
-        scp docker-compose.yml Dockerfile atem@curator.atemkeng.de:$DEPLOY_PATH/
-        scp -r .next package*.json public atem@curator.atemkeng.de:$DEPLOY_PATH/
-        ssh atem@curator.atemkeng.de "cd $DEPLOY_PATH && docker-compose down && docker-compose up -d --build"
+        chmod +x scripts/deploy.sh
+        scp scripts/deploy.sh atem@curator.atemkeng.de:/home/atem/docker/curator-music/
+    
+    - name: Deploy to Production
+      run: |
+        ssh atem@curator.atemkeng.de "chmod +x /home/atem/docker/curator-music/deploy.sh && /home/atem/docker/curator-music/deploy.sh"
