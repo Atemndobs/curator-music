@@ -1,6 +1,8 @@
+/// <reference types="@testing-library/jest-dom" />
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import RootLayout from '../app/layout';
+import '@testing-library/jest-dom';
+import RootLayout, { metadata } from '../app/layout';
 
 describe('RootLayout', () => {
   it('renders children', () => {
@@ -16,7 +18,7 @@ describe('RootLayout', () => {
   });
 
   it('has correct metadata', () => {
-    expect(RootLayout.metadata.title).toBe('Music Curator');
-    expect(RootLayout.metadata.description).toBe('A mobile-first music curation app');
+    expect(metadata.title).toBe('Music Curator');
+    expect(metadata.description).toBe('A mobile-first music curation app');
   });
 });
