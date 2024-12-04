@@ -33,29 +33,22 @@ const withPWA = require('next-pwa')({
         cacheName: 'audio-cache',
         expiration: {
           maxEntries: 50,
-          maxAgeSeconds: 7 * 24 * 60 * 60 // 7 days
-        },
-        rangeRequests: true
+          maxAgeSeconds: 24 * 60 * 60 // 24 hours
+        }
       }
     }
   ]
-});
+})
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  eslint: {
-    ignoreDuringBuilds: true,
+  output: 'standalone',
+  experimental: {
+    outputFileTracingRoot: undefined,
   },
-  images: { 
-    unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**',
-      },
-    ],
+  images: {
+    domains: ['curator.atemkeng.eu', 'app.curator.atemkeng.eu'],
   },
-};
+}
 
-module.exports = withPWA(nextConfig);
+module.exports = withPWA(nextConfig)
