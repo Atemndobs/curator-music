@@ -5,9 +5,32 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - NODE_ENV=production
     container_name: curator-music
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "2500:3000"
     environment:
       - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - curator_network
+    volumes:
+      - ./public:/app/public
+      - ./.next:/app/.next
+      - node_modules:/app/node_modules
+
+networks:
+  curator_network:
+    driver: bridge
+
+volumes:
+  node_modules:

@@ -44,13 +44,13 @@ jobs:
     - name: Add host key
       run: |
         mkdir -p ~/.ssh
-        ssh-keyscan curator.atemkeng.de >> ~/.ssh/known_hosts
+        ssh-keyscan app.curator.atemkeng.de >> ~/.ssh/known_hosts
     
     - name: Copy deployment script
       run: |
         chmod +x scripts/deploy.sh
-        scp scripts/deploy.sh atem@curator.atemkeng.de:/home/atem/docker/curator-music/
+        scp scripts/deploy.sh atem@app.curator.atemkeng.de:/home/atem/docker/curator-music/
     
     - name: Deploy to Production
       run: |
-        ssh atem@curator.atemkeng.de "chmod +x /home/atem/docker/curator-music/deploy.sh && /home/atem/docker/curator-music/deploy.sh"
+        ssh atem@app.curator.atemkeng.de "chmod +x /home/atem/docker/curator-music/deploy.sh && /home/atem/docker/curator-music/deploy.sh"
