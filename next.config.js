@@ -47,7 +47,7 @@ const nextConfig = {
     outputFileTracingRoot: undefined,
   },
   images: {
-    domains: ['curator.atemkeng.eu', 'app.curator.atemkeng.eu'],
+    domains: ['curator.atemkeng.eu', 'app.curator.atemkeng.eu', 'minio.goose-neon.ts.net', 'minio.goose-neon.ts.net'],
   },
 }
 
